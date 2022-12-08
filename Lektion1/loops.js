@@ -43,9 +43,18 @@ for(let prop in usersArray[0]){
     console.log(prop, usersArray[0][prop]);
   }
 
-for(let prop in usersArray){
-    console.log(prop.name);
-  }
+// for(let prop in usersArray){
+//     console.log(prop.name);
+//   }
+
+//while, do while precis som i c#
+
+// do {
+//   console.log('do while: ' + i);
+//   i++; // kom ihåg att inkrementera i! annars blir det en oändlig loop
+// } while(i < 7);
+
+
   
 
 

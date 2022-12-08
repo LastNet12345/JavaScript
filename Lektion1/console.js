@@ -19,11 +19,11 @@ let age2 = 45;
 const age3 = 66;
 
 if(age2 === 45){
-    let age = 55;
-    let firstName = 'Kalle';
+    let age = 55; //lokalt scope bara synlig här
+    var firstName = 'Kalle'; //globalt scope synlig även utanför
 }
 
-var firstName = "Nisse";
+
 
 console.log(age, firstName);
 
