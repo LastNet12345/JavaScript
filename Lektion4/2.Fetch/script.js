@@ -42,10 +42,10 @@ let jsonOutput = document.querySelector('#json-output');
 const getJson = () => {
     fetch('json.json')
         .then(res => {
-            console.log(res);
-            if (res.ok)
+            // console.log(res);
+            // if (res.ok)
                 return res.json()
-            throw new Error('Error when fetching');
+            // throw new Error('Error when fetching');
         })
         .then(data => {
             console.log(data);
@@ -85,9 +85,9 @@ const getGit = () => {
         }
     })
         .then(res => {
-            if (res.ok)
+            // if (res.ok)
                 return res.json();
-            throw new Error('Failed to get repos');
+            // throw new Error('Failed to get repos');
         })
         .then(data => {
             console.log(data);
@@ -119,39 +119,70 @@ const getGit = () => {
 btn3.addEventListener('click', getGit)
 
 
-let btn4 = document.querySelector('#btn4');
-let gitasyncOutput = document.querySelector('#gitasync-output');
 
 
-const getData = async (url) => {
-
+const getData = async (url = 'json.json') => {
+    
     const res = await fetch(url);
-
-    res.status(200).json(console.log('hej'))
-
+    
     if(!res.ok)
-        throw new Error('Error');
-
+    throw new Error('Error');
+    
     const data = await res.json();
-
-
+    
+    
     // work with data here
-
-    // console.log(data);
-   return data;
-
+    
+    //console.log(data);
+    return data;
+    
 }
 
 
 // let result = await getData('json.json');
 // console.log(result);
 getData('json.json')
-                .then(data => console.log(data))
-                .catch(err => console.log(err));
+.then(data => console.log(data))
+.catch(err => console.log(err));
+
+console.log('Heeeeeyyy!!!!');
 
 
-    console.log('Heeeeeyyy!!!!');
+let btn4 = document.querySelector('#btn4');
+let gitAsyncOutput = document.querySelector('#gitasync-output');
+
+const getGitAsync = async () => {
+
+    try {
+        const res = await fetch('https://api.github.com/users/Lexicon-Net/repos', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+        const data = await res.json();
+    
+        gitAsyncOutput.innerHTML = '';
+        data.forEach(repo => {
+                gitAsyncOutput.innerHTML +=
+                `
+                <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">${repo.name}</h5>
+                  <p class="card-text">This repository have been forked ${repo.forks_count} times</p>
+                  <a href="${repo.html_url}" class="card-link">${repo.name}</a>
+                  <a href="${repo.owner.html_url}" class="card-link">Organisation</a>
+                </div>
+                </div>
+    
+                `
+            })
+        
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+
+}
 
 
-
-btn4.addEventListener('click', getData)
+btn4.addEventListener('click', getGitAsync)
